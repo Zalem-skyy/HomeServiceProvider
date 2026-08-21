@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix Now - Home</title>
+    <style>
+        /* Base Mobile-First Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        .app-container {
+            width: 100%;
+            max-width: 400px; /* Simulates mobile screen on desktop */
+            background-color: white;
+            min-height: 100vh;
+            position: relative;
+            padding: 20px;
+            box-sizing: border-box;
+            padding-bottom: 80px; /* Space for bottom nav */
+        }
+
+        /* 1. Top Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .location-info p { margin: 0; font-size: 12px; color: #666; }
+        .location-info h4 { margin: 5px 0 0; font-size: 14px; }
+        .profile-avatar {
+            width: 40px;
+            height: 40px;
+            background-color: #ccc;
+            border-radius: 50%;
+        }
+
+        /* 2. Search Bar */
+        .search-bar {
+            width: 100%;
+            padding: 15px;
+            background-color: #b0b0b0;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            color: #333;
+            box-sizing: border-box;
+            margin-bottom: 30px;
+        }
+        .search-bar::placeholder { color: #333; }
+
+        /* 3. Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px 10px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .service-item { display: flex; flex-direction: column; align-items: center; }
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #d9d9d9;
+            border-radius: 50%;
+            margin-bottom: 8px;
+        }
+        .service-item span { font-size: 12px; font-weight: bold; }
+
+        /* 4. Active Booking Card */
+        .active-booking {
+            background-color: #d9d9d9;
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .provider-avatar {
+            width: 60px;
+            height: 60px;
+            background-color: #666;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .booking-details h4 { margin: 0 0 5px; font-size: 14px; }
+        .progress-bar {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            left: 95px;
+            height: 8px;
+            background-color: #333;
+            border-radius: 4px;
+        }
+
+        /* 5. Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 400px;
+            background-color: #d9d9d9;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            border-top: 2px solid #ccc;
+        }
+        .nav-item {
+            width: 35px;
+            height: 35px;
+            background-color: white;
+            border: 2px solid black;
+            border-radius: 4px; /* Default square for placeholder icons */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-item.active { background-color: #007bff; border-color: #007bff; }
+        .nav-item.circle { border-radius: 50%; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- Header Section -->
+        <div class="header">
+            <div class="location-info">
+                <p>Current location</p>
+                <h4>123 Main Street</h4>
+            </div>
+            <div class="profile-avatar"></div>
+        </div>
+
+        <!-- Search Bar -->
+        <input type="text" class="search-bar" placeholder="Search for electricians, plumbers...">
+
+        <!-- Services Grid -->
+        <div class="services-grid">
+            <!-- Repeating Plumbing as placeholders to match wireframe -->
+            <div class="service-item"><div class="service-icon"></div><span>Plumbing</span></div>
+            <div class="service-item"><div class="service-icon"></div><span>Plumbing</span></div>
+            <div class="service-item"><div class="service-icon"></div><span>Plumbing</span></div>
+            <div class="service-item"><div class="service-icon"></div><span>Plumbing</span></div>
+            <div class="service-item"><div class="service-icon"></div><span>Plumbing</span></div>
+            <div class="service-item"><div class="service-icon"></div><span>Plumbing</span></div>
+            <div class="service-item"><div class="service-icon"></div><span>Plumbing</span></div>
+            <div class="service-item"><div class="service-icon"></div><span>Plumbing</span></div>
+        </div>
+
+        <!-- Active Booking Tracking Card -->
+        <div class="active-booking">
+            <div class="provider-avatar"></div>
+            <div class="booking-details">
+                <h4>John Doe - Arriving<br>in 15 mins</h4>
+            </div>
+            <div class="progress-bar"></div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <div class="nav-item active"></div> <!-- Home -->
+            <div class="nav-item"></div>        <!-- Bookings -->
+            <div class="nav-item"></div>        <!-- Wallet -->
+            <div class="nav-item circle"></div> <!-- Profile -->
+        </div>
+
+    </div>
+<script src="js/user-dash.js"></script>
+</body>
+</body>
+</html>
