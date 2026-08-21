@@ -1,4 +1,4 @@
-"# HomeServiceProvider" 
+# HomeServiceProvider 
 Alternatively called: Fix Now
 Fix Now is a home service application that connects customers with
 trusted professionals such as electricians, plumbers, carpenters,
@@ -17,7 +17,7 @@ This platform provides a unified digital ecosystem for searching, booking, and t
 ## Quality Assurance
 By implementing verified profiles, rating systems, and transparent payments, we ensure safety and high-quality service delivery.
 
-# Focusing on User Module and Provider Module as starting point for creation of file structure and ceratiing their algorithm
+# Focusing on User Module and Provider Module as starting point for creation of file structure and creation of their algorithm
 ## User Module:
 Secure registration, intelligent provider search, service booking, and live status tracking.
 ## Provider Module:
