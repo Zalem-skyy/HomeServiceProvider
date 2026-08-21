@@ -16,3 +16,9 @@ This platform provides a unified digital ecosystem for searching, booking, and t
 
 ## Quality Assurance
 By implementing verified profiles, rating systems, and transparent payments, we ensure safety and high-quality service delivery.
+
+# Focusing on User Module and Provider Module as starting point for creation of file structure and ceratiing their algorithm
+## User Module:
+Secure registration, intelligent provider search, service booking, and live status tracking.
+## Provider Module:
+Profile creation, document verification, schedule management, earnings dashboard, and job acceptance.
