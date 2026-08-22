@@ -44,6 +44,33 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Placeholder function for the booking action
-function bookProvider(id) {
-    alert(`Booking logic for Provider ID: ${id} will go here!`);
+async function bookProvider(providerId) {
+    const token = localStorage.getItem('token');
+    if (!token) return alert("Please log in first!");
+
+    // Extract the userId directly from the JWT payload for our prototype
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const userId = payload.id;
+    
+    // Set a mock appointment date for tomorrow
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const date = tomorrow.toISOString().slice(0, 19).replace('T', ' ');
+
+    try {
+        const response = await fetch('http://localhost:5000/api/bookings', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userId, providerId, date })
+        });
+
+        if (response.ok) {
+            alert('Booking Successful! Redirecting to dashboard...');
+            window.location.href = 'user-dash.html';
+        } else {
+            alert('Failed to book provider.');
+        }
+    } catch (error) {
+        alert('Server error.');
+    }
 }

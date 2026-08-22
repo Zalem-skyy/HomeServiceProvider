@@ -37,4 +37,38 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Failed to load categories:', error);
         servicesGrid.innerHTML = '<p>Error loading services.</p>';
     }
+
+    // 3. Fetch Active Booking
+    const activeBookingCard = document.querySelector('.active-booking');
+    try {
+        // Extract userId from the saved JWT
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const userId = payload.id;
+        
+        const bookingRes = await fetch(`http://localhost:5000/api/bookings/active/${userId}`);
+        const bookingData = await bookingRes.json();
+
+        if (bookingData.hasBooking) {
+            const booking = bookingData.booking;
+            
+            // Format the date
+            const dateObj = new Date(booking.appointment_date);
+            const formattedDate = dateObj.toLocaleDateString() + ' ' + dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+            activeBookingCard.innerHTML = `
+                <div class="provider-avatar"></div>
+                <div class="booking-details">
+                    <h4>${booking.provider_name} - ${booking.status}</h4>
+                    <p style="margin: 0; font-size: 12px; color: #666;">Scheduled: ${formattedDate}</p>
+                </div>
+                <div class="progress-bar"></div>
+            `;
+            activeBookingCard.style.display = 'flex'; // Show card
+        } else {
+            activeBookingCard.style.display = 'none'; // Hide card if no bookings
+        }
+    } catch (error) {
+        console.error('Failed to load active booking:', error);
+        activeBookingCard.style.display = 'none';
+    }
 });
