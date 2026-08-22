@@ -1,0 +1,34 @@
+# ==========================================
+# AI Exclusion File
+# Optimizes AI context by ignoring heavy, 
+# auto-generated, or sensitive files.
+# ==========================================
+
+# 1. Dependencies (HEAVY - Do not index!)
+**/node_modules/
+package-lock.json
+yarn.lock
+
+# 2. Environment Variables & Secrets
+**/.env
+**/.env.*
+*.pem
+*.key
+
+# 3. Logs & Caches
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+.npm/
+
+# 4. OS & Editor Generated Files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# 5. Build Outputs (if you add build tools later)
+dist/
+build/
+out/
