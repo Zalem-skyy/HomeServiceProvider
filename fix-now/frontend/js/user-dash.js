@@ -63,9 +63,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>
                 <div class="progress-bar"></div>
             `;
-            activeBookingCard.style.display = 'flex'; // Show card
+            activeBookingCard.style.display = 'flex';
+            activeBookingCard.style.cursor = 'pointer';
+            activeBookingCard.onclick = () => {
+                window.location.href = `booking-details.html?id=${booking.id}`;
+            };
         } else {
-            activeBookingCard.style.display = 'none'; // Hide card if no bookings
+            activeBookingCard.style.display = 'none';
+            activeBookingCard.onclick = null;
         }
     } catch (error) {
         console.error('Failed to load active booking:', error);

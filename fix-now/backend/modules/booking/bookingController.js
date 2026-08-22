@@ -19,6 +19,37 @@ exports.createBooking = async (req, res) => {
         res.status(500).json({ message: 'Error creating booking.' });
     }
 };
+
+// Fetch ALL bookings for a specific user
+exports.getAllUserBookings = async (req, res) => {
+    try {
+        const [bookings] = await db.query(
+            `SELECT b.id, b.appointment_date, b.status, p.name AS provider_name 
+             FROM bookings b JOIN providers p ON b.provider_id = p.id 
+             WHERE b.user_id = ? ORDER BY b.appointment_date ASC`,
+            [req.params.userId]
+        );
+        res.status(200).json(bookings);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching bookings.' });
+    }
+};
+
+// Fetch details for a SINGLE booking
+exports.getBookingById = async (req, res) => {
+    try {
+        const [booking] = await db.query(
+            `SELECT b.*, p.name AS provider_name, p.service_category 
+             FROM bookings b JOIN providers p ON b.provider_id = p.id 
+             WHERE b.id = ?`,
+            [req.params.id]
+        );
+        res.status(200).json(booking[0] || {});
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching booking details.' });
+    }
+};
+
 // Fetch the most recent active booking for a user
 exports.getUserActiveBooking = async (req, res) => {
     try {

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix Now - My Bookings</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 0; display: flex; justify-content: center; }
+        .app-container { width: 100%; max-width: 400px; background-color: white; min-height: 100vh; position: relative; padding: 20px; box-sizing: border-box; padding-bottom: 80px; }
+        
+        .header { margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 10px; }
+        .header h2 { margin: 0; font-size: 22px; }
+
+        .booking-card { background: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 15px; margin-bottom: 15px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center;}
+        .booking-card:hover { background: #f9f9f9; }
+        .booking-info h4 { margin: 0 0 5px; font-size: 16px; }
+        .booking-info p { margin: 0; font-size: 13px; color: #666; }
+        .status { font-weight: bold; font-size: 12px; padding: 4px 8px; border-radius: 4px; text-transform: capitalize; }
+        .status.pending { background: #fff3cd; color: #856404; }
+        .status.completed { background: #d4edda; color: #155724; }
+
+        /* Bottom Navigation */
+        .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 400px; background-color: #d9d9d9; display: flex; justify-content: space-around; padding: 15px 0; border-top: 2px solid #ccc; }
+        .nav-item { width: 35px; height: 35px; background-color: white; border: 2px solid black; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .nav-item.active { background-color: #007bff; border-color: #007bff; }
+        .nav-item.circle { border-radius: 50%; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <div class="header">
+            <h2>My Bookings</h2>
+        </div>
+
+        <div id="bookingsList">
+            <p>Loading bookings...</p>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <div class="nav-item" onclick="window.location.href='user-dash.html'"></div> <!-- Home -->
+            <div class="nav-item active"></div> <!-- Bookings (Active) -->
+            <div class="nav-item"></div>        <!-- Wallet -->
+            <div class="nav-item circle"></div> <!-- Profile -->
+        </div>
+    </div>
+
+    <script src="js/bookings.js"></script>
+</body>
+</html>
