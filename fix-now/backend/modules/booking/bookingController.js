@@ -75,3 +75,21 @@ exports.getUserActiveBooking = async (req, res) => {
         res.status(500).json({ message: 'Error fetching active booking.' });
     }
 };
+// Cancel a specific booking
+exports.cancelBooking = async (req, res) => {
+    try {
+        const [result] = await db.query(
+            "UPDATE bookings SET status = 'cancelled' WHERE id = ?",
+            [req.params.id]
+        );
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: 'Booking not found.' });
+        }
+
+        res.status(200).json({ message: 'Booking cancelled successfully.' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error cancelling booking.' });
+    }
+};

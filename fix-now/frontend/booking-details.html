@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix Now - Booking Details</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 0; display: flex; justify-content: center; }
+        .app-container { width: 100%; max-width: 400px; background-color: white; min-height: 100vh; padding: 20px; box-sizing: border-box; }
+        
+        .header { display: flex; align-items: center; margin-bottom: 30px; border-bottom: 1px solid #ddd; padding-bottom: 10px; }
+        .back-btn { font-size: 24px; text-decoration: none; color: #333; margin-right: 15px; cursor: pointer; }
+        .header h2 { margin: 0; font-size: 20px; }
+
+        .details-card { background: #f9f9f9; border: 1px solid #ddd; border-radius: 10px; padding: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .detail-row { display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px dashed #eee; padding-bottom: 10px; }
+        .detail-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .detail-label { color: #666; font-size: 14px; }
+        .detail-value { font-weight: bold; font-size: 14px; text-align: right; }
+        
+        .status { padding: 4px 8px; border-radius: 4px; text-transform: capitalize; font-size: 12px; }
+        .status.pending { background: #fff3cd; color: #856404; }
+        .status.completed { background: #d4edda; color: #155724; }
+        .cancel-btn { width: 100%; padding: 12px; background: #dc3545; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 20px; }
+        .cancel-btn:hover { background: #c82333; }
+        .status.cancelled { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <div class="header">
+            <a href="javascript:history.back()" class="back-btn">&larr;</a>
+            <h2>Booking Details</h2>
+        </div>
+
+        <div id="bookingContent">
+            <p style="text-align: center;">Loading details...</p>
+        </div>
+    </div>
+
+    <script src="js/booking-details.js"></script>
+</body>
+</html>

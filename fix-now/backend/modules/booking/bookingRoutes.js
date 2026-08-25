@@ -14,4 +14,7 @@ router.get('/:id', bookingController.getBookingById);
 // GET /api/bookings/active/:userId
 router.get('/active/:userId', bookingController.getUserActiveBooking);
 
+// PATCH /api/bookings/:id/cancel - Cancel a booking
+router.patch('/:id/cancel', bookingController.cancelBooking);
+
 module.exports = router;
