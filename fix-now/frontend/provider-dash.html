@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix Now - Provider Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 0; display: flex; justify-content: center; }
+        .app-container { width: 100%; max-width: 400px; background-color: white; min-height: 100vh; padding: 20px; box-sizing: border-box; }
+        
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 10px; }
+        .header h2 { margin: 0; font-size: 22px; color: #007bff; }
+        .logout-btn { font-size: 12px; color: #dc3545; cursor: pointer; font-weight: bold; }
+
+        .job-card { background: #fff; border: 1px solid #ddd; border-left: 4px solid #007bff; border-radius: 4px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .job-info h4 { margin: 0 0 5px; font-size: 16px; }
+        .job-info p { margin: 0 0 8px; font-size: 13px; color: #666; }
+        
+        .status { font-weight: bold; font-size: 12px; padding: 4px 8px; border-radius: 4px; text-transform: capitalize; display: inline-block; }
+        .status.pending { background: #fff3cd; color: #856404; }
+        .status.completed { background: #d4edda; color: #155724; }
+        .status.cancelled { background: #f8d7da; color: #721c24; }
+        
+        /* Action buttons for the provider */
+        .job-actions { margin-top: 10px; display: flex; gap: 10px; }
+        .action-btn { flex: 1; padding: 8px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 12px; }
+        .btn-complete { background: #28a745; color: white; }
+        .btn-complete:hover { background: #218838; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <div class="header">
+            <h2>Provider Portal</h2>
+            <div class="logout-btn" onclick="logout()">Log Out</div>
+        </div>
+
+        <h3>Your Jobs</h3>
+        <div id="jobsList">
+            <p>Loading your jobs...</p>
+        </div>
+    </div>
+
+    <script src="js/provider-dash.js"></script>
+</body>
+</html>

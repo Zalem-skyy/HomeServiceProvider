@@ -8,6 +8,9 @@ router.post('/', bookingController.createBooking);
 // GET /api/bookings/user/:userId - Get all bookings for a user
 router.get('/user/:userId', bookingController.getAllUserBookings);
 
+// GET /api/bookings/provider/:providerId - Get all bookings for a provider
+router.get('/provider/:providerId', bookingController.getProviderBookings);
+
 // GET /api/bookings/:id - Get specific booking details
 router.get('/:id', bookingController.getBookingById);
 

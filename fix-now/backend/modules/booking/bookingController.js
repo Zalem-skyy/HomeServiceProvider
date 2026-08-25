@@ -93,3 +93,21 @@ exports.cancelBooking = async (req, res) => {
         res.status(500).json({ message: 'Error cancelling booking.' });
     }
 };
+
+// Fetch ALL bookings for a specific provider
+exports.getProviderBookings = async (req, res) => {
+    try {
+        const [bookings] = await db.query(
+            `SELECT b.id, b.appointment_date, b.status, u.name AS user_name 
+             FROM bookings b 
+             JOIN users u ON b.user_id = u.id 
+             WHERE b.provider_id = ? 
+             ORDER BY b.appointment_date ASC`,
+            [req.params.providerId]
+        );
+        res.status(200).json(bookings);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error fetching provider bookings.' });
+    }
+};
