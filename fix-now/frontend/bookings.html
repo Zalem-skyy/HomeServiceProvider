@@ -8,20 +8,35 @@
         body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 0; display: flex; justify-content: center; }
         .app-container { width: 100%; max-width: 400px; background-color: white; min-height: 100vh; position: relative; padding: 20px; box-sizing: border-box; padding-bottom: 80px; }
         
-        .header { margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 10px; }
+        .header { margin-bottom: 15px; border-bottom: 1px solid #ddd; padding-bottom: 10px; }
         .header h2 { margin: 0; font-size: 22px; }
 
-        .booking-card { background: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 15px; margin-bottom: 15px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center;}
-        .booking-card:hover { background: #f9f9f9; }
+        /* Controls: Tabs & View Toggle */
+        .controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .tabs { display: flex; gap: 10px; }
+        .tab-btn { padding: 6px 14px; border: none; background: #eee; border-radius: 20px; cursor: pointer; font-weight: bold; color: #666; font-size: 13px; }
+        .tab-btn.active { background: #007bff; color: white; }
+        .view-toggle { background: white; border: 1px solid #ccc; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+
+        /* Card View (Default) */
+        .booking-card { background: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 15px; margin-bottom: 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
         .booking-info h4 { margin: 0 0 5px; font-size: 16px; }
         .booking-info p { margin: 0; font-size: 13px; color: #666; }
+        
+        /* List View (Compact) */
+        .list-view .booking-card { padding: 10px; border-radius: 4px; margin-bottom: 8px; border-left: 4px solid #007bff; }
+        .list-view .booking-info { display: flex; gap: 15px; align-items: baseline; }
+        .list-view .booking-info h4 { font-size: 14px; margin: 0; }
+        .list-view .booking-info p { font-size: 11px; }
+
+        /* Status Colors */
         .status { font-weight: bold; font-size: 12px; padding: 4px 8px; border-radius: 4px; text-transform: capitalize; }
         .status.pending { background: #fff3cd; color: #856404; }
-        .status.completed { background: #d4edda; color: #155724; }
+        .status.completed { background: #d4edda; color: #155724; } /* Green */
+        .status.cancelled { background: #f8d7da; color: #721c24; } /* Red */
 
-        /* Bottom Navigation */
         .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 400px; background-color: #d9d9d9; display: flex; justify-content: space-around; padding: 15px 0; border-top: 2px solid #ccc; }
-        .nav-item { width: 35px; height: 35px; background-color: white; border: 2px solid black; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .nav-item { width: 35px; height: 35px; background-color: white; border: 2px solid black; border-radius: 4px; cursor: pointer; }
         .nav-item.active { background-color: #007bff; border-color: #007bff; }
         .nav-item.circle { border-radius: 50%; }
     </style>
@@ -29,20 +44,26 @@
 <body>
 
     <div class="app-container">
-        <div class="header">
-            <h2>My Bookings</h2>
+        <div class="header"><h2>My Bookings</h2></div>
+
+        <!-- Dynamic Controls -->
+        <div class="controls">
+            <div class="tabs">
+                <button id="tab-active" class="tab-btn active" onclick="switchTab('active')">Active</button>
+                <button id="tab-history" class="tab-btn" onclick="switchTab('history')">History</button>
+            </div>
+            <button id="viewToggle" class="view-toggle" onclick="toggleView()">List View</button>
         </div>
 
         <div id="bookingsList">
             <p>Loading bookings...</p>
         </div>
 
-        <!-- Bottom Navigation -->
         <div class="bottom-nav">
-            <div class="nav-item" onclick="window.location.href='user-dash.html'"></div> <!-- Home -->
-            <div class="nav-item active"></div> <!-- Bookings (Active) -->
-            <div class="nav-item"></div>        <!-- Wallet -->
-            <div class="nav-item circle"></div> <!-- Profile -->
+            <div class="nav-item" onclick="window.location.href='user-dash.html'"></div>
+            <div class="nav-item active"></div>
+            <div class="nav-item"></div>
+            <div class="nav-item circle"></div>
         </div>
     </div>
 
