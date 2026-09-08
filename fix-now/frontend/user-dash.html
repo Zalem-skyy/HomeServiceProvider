@@ -125,25 +125,45 @@
         }
         .nav-item.active { background-color: #007bff; border-color: #007bff; }
         .nav-item.circle { border-radius: 50%; }
+
+        /* New Search UI Styles */
+        .search-pill { background: #bbb; padding: 12px 15px; border-radius: 25px; color: #333; font-size: 14px; cursor: pointer; margin-bottom: 20px; font-weight: bold; }
+        .search-dropdown { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 20px; display: none; }
+        .search-dropdown input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .location-group { display: flex; gap: 5px; margin-bottom: 10px; }
+        .location-group button { background: #e9ecef; border: 1px solid #ccc; border-radius: 4px; padding: 0 15px; cursor: pointer; font-size: 16px; }
+        .search-btn { width: 100%; padding: 10px; background: #007bff; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
 
     <div class="app-container">
-        
-        <!-- Header Section -->
-        <div class="header">
-            <div class="location-info">
-                <p>Current location</p>
-                <h4>123 Main Street</h4>
+        <!-- Top Header -->
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+            <div>
+                <p style="margin: 0; font-size: 12px; color: #888;">Current location</p>
+                <h3 id="currentLocationText" style="margin: 0;">123 Main Street</h3>
             </div>
-            <div class="profile-avatar"></div>
+            <div class="provider-avatar" style="width: 40px; height: 40px;"></div>
         </div>
 
-        <!-- Search Bar -->
-        <input type="text" class="search-bar" placeholder="Search for electricians, plumbers...">
+        <!-- Clickable Search Pill -->
+        <div class="search-pill" onclick="toggleSearch()">
+            🔍 Search for electricians, plumbers...
+        </div>
 
-        <!-- Services Grid -->
+        <!-- Hidden Search Dropdown -->
+        <div id="searchDropdown" class="search-dropdown">
+            <input type="text" id="searchKeyword" placeholder="What service do you need? (e.g. Plumber)">
+            <div class="location-group">
+                <input type="text" id="searchLocation" placeholder="City" style="margin-bottom: 0;">
+                <button type="button" onclick="detectLocation()" title="Detect My Location">📍</button>
+            </div>
+            <button class="search-btn" onclick="executeSearch()">Search Providers</button>
+        </div>
+
+        <h3>Our Services</h3>
+
         <div class="services-grid">
             <!-- Repeating Plumbing as placeholders to match wireframe -->
             <div class="service-item"><div class="service-icon"></div><span>Plumbing</span></div>

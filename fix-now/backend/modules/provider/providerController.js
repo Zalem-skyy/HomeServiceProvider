@@ -90,3 +90,27 @@ exports.getProvidersByCategory = async (req, res) => {
         res.status(500).json({ message: 'Error fetching providers.' });
     }
 };
+
+// Search providers by keyword and location
+exports.searchProviders = async (req, res) => {
+    try {
+        const { keyword, location } = req.query;
+        let query = 'SELECT id, name, service_category, location FROM providers WHERE is_verified = true';
+        const params = [];
+
+        if (keyword) {
+            query += ' AND (service_category LIKE ? OR name LIKE ?)';
+            params.push(`%${keyword}%`, `%${keyword}%`);
+        }
+        if (location) {
+            query += ' AND location = ?';
+            params.push(location);
+        }
+
+        const [providers] = await db.query(query, params);
+        res.status(200).json(providers);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error searching providers.' });
+    }
+};

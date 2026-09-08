@@ -77,3 +77,53 @@ document.addEventListener('DOMContentLoaded', async () => {
         activeBookingCard.style.display = 'none';
     }
 });
+
+// 1. Toggle the dropdown visibility
+window.toggleSearch = () => {
+    const dropdown = document.getElementById('searchDropdown');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+};
+
+// 2. Auto-detect location using Browser Geolocation & OpenStreetMap API
+window.detectLocation = () => {
+    const locInput = document.getElementById('searchLocation');
+    locInput.value = "Detecting...";
+
+    if (!navigator.geolocation) {
+        alert("Geolocation is not supported by your browser.");
+        locInput.value = "";
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(async (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        try {
+            // Free Reverse Geocoding API to turn coordinates into a City Name
+            const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`);
+            const data = await response.json();
+
+            // Extract city, town, or village from the response
+            const city = data.address.city || data.address.town || data.address.state_district || data.address.county || "Unknown Location";
+
+            locInput.value = city;
+            document.getElementById('currentLocationText').innerText = city; // Update top header too!
+        } catch (error) {
+            console.error("Geocoding failed", error);
+            locInput.value = "New York"; // Fallback for prototype testing
+            alert("Could not determine city name. Please enter manually.");
+        }
+    }, (error) => {
+        alert("Location permission denied. Please type your city manually.");
+        locInput.value = "";
+    });
+};
+
+// 3. Execute the search
+window.executeSearch = () => {
+    const keyword = document.getElementById('searchKeyword').value.trim();
+    const location = document.getElementById('searchLocation').value.trim();
+
+    window.location.href = `provider-list.html?keyword=${encodeURIComponent(keyword)}&location=${encodeURIComponent(location)}`;
+};
