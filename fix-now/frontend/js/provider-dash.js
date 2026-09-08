@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Make sure a regular user didn't accidentally wander here
         if (payload.role !== 'provider') {
             alert('Unauthorized. Providers only.');
-            return window.location.href = 'index.html';
+            return window.location.href = 'customer-auth.html';
         }
 
         const providerId = payload.id;

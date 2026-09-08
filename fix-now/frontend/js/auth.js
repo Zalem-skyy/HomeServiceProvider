@@ -1,6 +1,31 @@
 const API_URL = 'http://localhost:5000/api/users';
 const messageDiv = document.getElementById('message');
 
+// Toggle between Login and Register views
+window.toggleForms = () => {
+    const regContainer = document.getElementById('registerContainer');
+    const loginContainer = document.getElementById('loginContainer');
+    
+    if (regContainer.style.display === 'none') {
+        regContainer.style.display = 'block';
+        loginContainer.style.display = 'none';
+    } else {
+        regContainer.style.display = 'none';
+        loginContainer.style.display = 'block';
+    }
+    messageDiv.textContent = '';
+};
+
+// Toggle password visibility for better UX
+window.togglePassword = (inputId) => {
+    const input = document.getElementById(inputId);
+    if (input.type === 'password') {
+        input.type = 'text';
+    } else {
+        input.type = 'password';
+    }
+};
+
 // Handle Registration
 document.getElementById('registerForm').addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -22,6 +47,13 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
             messageDiv.style.color = 'green';
             messageDiv.textContent = 'Registration successful! You can now log in.';
             document.getElementById('registerForm').reset();
+            
+            // Uncheck the password toggle if it was checked
+            document.getElementById('showRegPass').checked = false;
+            document.getElementById('regPassword').type = 'password';
+
+            // Auto-switch to login form after 1.5 seconds
+            setTimeout(toggleForms, 1500); 
         } else {
             messageDiv.style.color = 'red';
             messageDiv.textContent = data.message || 'Registration failed.';
@@ -48,14 +80,12 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
         const data = await response.json();
 
         if (response.ok) {
-            // Save the token to local storage
             localStorage.setItem('token', data.token);
             
             messageDiv.style.color = 'green';
             messageDiv.textContent = `Welcome back, ${data.user.name}! Redirecting...`;
             document.getElementById('loginForm').reset();
-
-            // Redirect the user to the home page after 1 second
+            
             setTimeout(() => {
                 window.location.href = 'user-dash.html';
             }, 1000);

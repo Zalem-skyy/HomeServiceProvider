@@ -4,7 +4,7 @@ let isListView = false;
 
 document.addEventListener('DOMContentLoaded', async () => {
     const token = localStorage.getItem('token');
-    if (!token) return window.location.href = 'index.html';
+    if (!token) return window.location.href = 'customer-auth.html';
 
     try {
         const payload = JSON.parse(atob(token.split('.')[1]));
