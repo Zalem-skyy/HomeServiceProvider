@@ -25,7 +25,7 @@ document.getElementById('becomeProviderForm').addEventListener('submit', async (
     const location = document.getElementById('regLocation').value;
 
     try {
-        const response = await fetch('https://nuclei-caramel-arena.ngrok-free.dev.ngrok-free.app/api/providers/become', {
+        const response = await fetch('http://localhost:5000/api/providers/become', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ userId, service_category, location })

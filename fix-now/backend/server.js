@@ -21,6 +21,7 @@ app.get('/api/health', (req, res) => {
 const userRoutes = require('./modules/user/userRoutes');
 const providerRoutes = require('./modules/provider/providerRoutes');
 const bookingRoutes = require('./modules/booking/bookingRoutes');
+const paymentRoutes = require('./modules/payment/paymentRoutes');
 const reviewRoutes = require('./modules/review/reviewRoutes');
 const adminRoutes = require('./modules/admin/adminRoutes');
 
@@ -28,6 +29,7 @@ const adminRoutes = require('./modules/admin/adminRoutes');
 app.use('/api/users', userRoutes);
 app.use('/api/providers', providerRoutes);
 app.use('/api/bookings', bookingRoutes);
+app.use('/api/bookings', paymentRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/admin', adminRoutes);
 

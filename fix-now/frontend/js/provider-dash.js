@@ -1,21 +1,42 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    // Check for the PROIVDER token specifically
-    const token = localStorage.getItem('providerToken');
-    if (!token) return window.location.href = 'provider-auth.html';
+    // 1. Check for the universal token
+    const token = localStorage.getItem('token');
+    if (!token) {
+        alert('Please log in first.');
+        return window.location.href = 'index.html';
+    }
 
     const jobsList = document.getElementById('jobsList');
 
     try {
+        // 2. Decode the user ID from the universal token
         const payload = JSON.parse(atob(token.split('.')[1]));
-        
-        // Make sure a regular user didn't accidentally wander here
-        if (payload.role !== 'provider') {
-            alert('Unauthorized. Providers only.');
-            return window.location.href = 'customer-auth.html';
+        const userId = payload.id;
+
+        // 3. Fetch this user's provider profile
+        const profileRes = await fetch(`http://localhost:5000/api/providers/user/${userId}`);
+
+        if (profileRes.status === 404) {
+            // User has not onboarded as a provider yet
+            alert('You have not set up a provider profile yet.');
+            return window.location.href = 'provider-auth.html';
         }
 
-        const providerId = payload.id;
-        const response = await fetch(`http://localhost:5000/api/bookings/provider/${providerId}`);
+        const providerProfile = await profileRes.json();
+
+        // 4. Check if approved by Admin
+        if (!providerProfile.is_verified) {
+            jobsList.innerHTML = `
+                <div style="background: #fff3cd; color: #856404; padding: 15px; border-radius: 6px; text-align: center;">
+                    <h4>Account Pending Approval</h4>
+                    <p style="margin: 0; font-size: 13px;">Your provider application is awaiting admin verification.</p>
+                </div>
+            `;
+            return;
+        }
+
+        // 5. Fetch jobs using the real provider ID
+        const response = await fetch(`http://localhost:5000/api/bookings/provider/${providerProfile.id}`);
         const jobs = await response.json();
 
         if (jobs.length === 0) {
@@ -27,12 +48,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         jobs.forEach(job => {
             const dateObj = new Date(job.appointment_date);
-            const formattedDate = dateObj.toLocaleDateString() + ' ' + dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            const formattedDate = dateObj.toLocaleDateString() + ' ' + dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
             const card = document.createElement('div');
             card.className = 'job-card';
 
-            // Only show the 'Complete Job' button if the job is still pending
             const actionButtons = job.status === 'pending' 
                 ? `<div class="job-actions">
                        <button class="action-btn btn-complete" onclick="completeJob(${job.id})">Mark Completed</button>
@@ -52,18 +72,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
 
     } catch (error) {
-        console.error('Error fetching jobs:', error);
-        jobsList.innerHTML = '<p>Error loading jobs.</p>';
+        console.error('Error loading provider dashboard:', error);
+        jobsList.innerHTML = '<p style="color: red;">Error loading dashboard.</p>';
     }
 });
 
-// Simple logout function
+// Logout back to main index
 window.logout = () => {
-    localStorage.removeItem('providerToken');
-    window.location.href = 'provider-auth.html';
+    localStorage.removeItem('token');
+    window.location.href = 'index.html';
 };
 
-// Placeholder for the completion logic we will build next
 window.completeJob = (jobId) => {
     alert(`Logic to mark job ${jobId} as completed goes here!`);
 };

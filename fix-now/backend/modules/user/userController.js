@@ -83,3 +83,14 @@ exports.loginUser = async (req, res) => {
         res.status(500).json({ message: 'Server error during login.' });
     }
 };
+
+// Fetch user profile details
+exports.getUserProfile = async (req, res) => {
+    try {
+        const [users] = await db.query('SELECT name, email, role FROM users WHERE id = ?', [req.params.id]);
+        if (users.length === 0) return res.status(404).json({ message: 'User not found.' });
+        res.status(200).json(users[0]);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching profile.' });
+    }
+};

@@ -40,12 +40,19 @@ function renderBookings() {
         card.className = 'booking-card';
         card.onclick = () => window.location.href = `booking-details.html?id=${booking.id}`;
 
+        const actionButton = booking.status === 'completed' 
+            ? `<button style="margin-top: 10px; background: #28a745; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer;" onclick="event.stopPropagation(); window.location.href='checkout.html?id=${booking.id}'">Pay Now</button>` 
+            : '';
+
         card.innerHTML = `
             <div class="booking-info">
                 <h4>${booking.provider_name}</h4>
                 <p>${formattedDate}</p>
             </div>
-            <div class="status ${booking.status}">${booking.status}</div>
+            <div style="text-align: right;">
+                <div class="status ${booking.status}">${booking.status}</div>
+                ${actionButton}
+            </div>
         `;
         container.appendChild(card);
     });

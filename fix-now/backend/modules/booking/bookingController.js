@@ -1,11 +1,17 @@
 const db = require('../../config/db');
 
+// Create a new booking
 exports.createBooking = async (req, res) => {
     try {
         const { userId, providerId, date } = req.body;
 
         if (!userId || !providerId || !date) {
             return res.status(400).json({ message: 'Missing booking details.' });
+        }
+
+        const [provider] = await db.query('SELECT user_id FROM providers WHERE id = ?', [providerId]);
+        if (provider.length > 0 && provider[0].user_id === userId) {
+            return res.status(403).json({ message: 'You cannot book your own services!' });
         }
 
         const [result] = await db.query(

@@ -43,6 +43,26 @@ exports.becomeProvider = async (req, res) => {
     }
 };
 
+// Get provider profile by User ID
+exports.getProviderProfile = async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const [providers] = await db.query(
+            'SELECT * FROM providers WHERE user_id = ?',
+            [userId]
+        );
+
+        if (providers.length === 0) {
+            return res.status(404).json({ message: 'No provider profile found for this user.' });
+        }
+
+        res.status(200).json(providers[0]);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error fetching provider profile.' });
+    }
+};
+
 // 3. Fetch providers by category
 exports.getProvidersByCategory = async (req, res) => {
     try {

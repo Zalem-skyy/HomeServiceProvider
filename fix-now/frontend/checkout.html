@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Fix Now - Secure Checkout</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f4f9; padding: 40px; display: flex; justify-content: center; }
+        .checkout-card { background: white; padding: 30px; border-radius: 12px; width: 100%; max-width: 400px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+        .pay-btn { width: 100%; padding: 12px; background: #28a745; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="checkout-card">
+        <h2>Complete Payment</h2>
+        <p>Total: <strong>$50.00</strong></p>
+        <form id="paymentForm">
+            <input type="text" placeholder="Name on Card" required>
+            <input type="text" placeholder="Card Number (Type anything!)" required>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" placeholder="MM/YY" required>
+                <input type="text" placeholder="CVC" required>
+            </div>
+            <button type="submit" class="pay-btn">Submit Payment</button>
+        </form>
+    </div>
+    <script src="js/checkout.js"></script>
+</body>
+</html>
