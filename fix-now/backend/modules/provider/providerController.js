@@ -33,9 +33,9 @@ exports.register = async (req, res) => {
         // Hash the password for security
         const hashedPassword = await bcrypt.hash(password, 10);
         
-        // Insert into database (setting is_verified to true for our prototype)
+        // Insert new providers as unverified until an admin approves them
         await db.query(
-            'INSERT INTO providers (name, email, password, service_category, is_verified) VALUES (?, ?, ?, ?, true)',
+            'INSERT INTO providers (name, email, password, service_category, is_verified) VALUES (?, ?, ?, ?, false)',
             [name, email, hashedPassword, service_category]
         );
         

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix Now - Admin Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 0; display: flex; justify-content: center; }
+        .app-container { width: 100%; max-width: 500px; background-color: white; min-height: 100vh; padding: 20px; box-sizing: border-box; }
+        .header { border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 20px; }
+        .header h2 { margin: 0; color: #333; }
+        .provider-card { background: #fff; border: 1px solid #ddd; border-left: 4px solid #ffc107; padding: 15px; margin-bottom: 15px; border-radius: 4px; }
+        .verify-btn { background: #28a745; color: white; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="header">
+            <h2>Admin Control Center</h2>
+            <p style="color: #666; font-size: 14px;">Pending Provider Approvals</p>
+        </div>
+        <div id="pendingList"><p>Loading...</p></div>
+    </div>
+    <script src="js/admin-dash.js"></script>
+</body>
+</html>
