@@ -1,4 +1,5 @@
-const API_URL = 'http://192.168.85.1:5000/api/users';
+// Replace the 'xxxx' part with your actual ngrok URL!
+const API_URL = 'https://nuclei-caramel-arena.ngrok-free.dev.ngrok-free.app/api/users';
 const messageDiv = document.getElementById('message');
 
 // Toggle between Login and Register views
