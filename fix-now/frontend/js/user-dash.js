@@ -9,26 +9,33 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         // Fetch categories from the backend
-        const response = await fetch('http://localhost:5000/api/providers/categories');
+        const response = await fetch(' https://nuclei-caramel-arena.ngrok-free.dev.ngrok-free.app/api/providers/categories');
         const categories = await response.json();
 
         // Clear the hardcoded "Plumbing" placeholders
         servicesGrid.innerHTML = '';
 
-        // Loop through the data and create new elements
+        // 1. Create a map of icons for your categories
+        const iconMap = {
+            'Plumbers': '🚰', 'Electricians': '⚡', 'Cleaners': '🧹',
+            'Carpenters': '🪚', 'Painters': '🎨', 'Appliances': '📺',
+            'Pest Control': '🐜', 'Movers': '📦'
+        };
+
         categories.forEach(category => {
             const serviceItem = document.createElement('div');
             serviceItem.className = 'service-item';
-            serviceItem.style.cursor = 'pointer'; // Makes it look clickable
+            serviceItem.style.cursor = 'pointer';
+
+            const icon = iconMap[category.name] || '🔧';
             
             serviceItem.innerHTML = `
-                <div class="service-icon"></div>
+                <div class="service-icon">${icon}</div>
                 <span>${category.name}</span>
             `;
             
-            // Redirect to the new page, passing the category name in the URL
             serviceItem.onclick = () => {
-                window.location.href = `provider-list.html?category=${category.name}`;
+                window.location.href = `provider-list.html?category=${encodeURIComponent(category.name)}`;
             };
             
             servicesGrid.appendChild(serviceItem);
@@ -45,7 +52,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const payload = JSON.parse(atob(token.split('.')[1]));
         const userId = payload.id;
         
-        const bookingRes = await fetch(`http://localhost:5000/api/bookings/active/${userId}`);
+        const bookingRes = await fetch(`https:// https://nuclei-caramel-arena.ngrok-free.dev.ngrok-free.app/api/bookings/active/${userId}`);
         const bookingData = await bookingRes.json();
 
         if (bookingData.hasBooking) {

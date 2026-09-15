@@ -24,13 +24,16 @@ exports.createBooking = async (req, res) => {
 exports.getAllUserBookings = async (req, res) => {
     try {
         const [bookings] = await db.query(
-            `SELECT b.id, b.appointment_date, b.status, p.name AS provider_name 
-             FROM bookings b JOIN providers p ON b.provider_id = p.id 
+            `SELECT b.id, b.appointment_date, b.status, u.name AS provider_name 
+             FROM bookings b 
+             JOIN providers p ON b.provider_id = p.id 
+             JOIN users u ON p.user_id = u.id
              WHERE b.user_id = ? ORDER BY b.appointment_date ASC`,
             [req.params.userId]
         );
         res.status(200).json(bookings);
     } catch (error) {
+        console.error(error);
         res.status(500).json({ message: 'Error fetching bookings.' });
     }
 };
@@ -39,13 +42,16 @@ exports.getAllUserBookings = async (req, res) => {
 exports.getBookingById = async (req, res) => {
     try {
         const [booking] = await db.query(
-            `SELECT b.*, p.name AS provider_name, p.service_category 
-             FROM bookings b JOIN providers p ON b.provider_id = p.id 
+            `SELECT b.*, u.name AS provider_name, p.service_category 
+             FROM bookings b 
+             JOIN providers p ON b.provider_id = p.id 
+             JOIN users u ON p.user_id = u.id
              WHERE b.id = ?`,
             [req.params.id]
         );
         res.status(200).json(booking[0] || {});
     } catch (error) {
+        console.error(error);
         res.status(500).json({ message: 'Error fetching booking details.' });
     }
 };
@@ -55,20 +61,17 @@ exports.getUserActiveBooking = async (req, res) => {
     try {
         const { userId } = req.params;
         
-        // Join bookings and providers tables to get the provider's name
         const [bookings] = await db.query(
-            `SELECT b.id, b.appointment_date, b.status, p.name AS provider_name 
+            `SELECT b.id, b.appointment_date, b.status, u.name AS provider_name 
              FROM bookings b 
              JOIN providers p ON b.provider_id = p.id 
+             JOIN users u ON p.user_id = u.id 
              WHERE b.user_id = ? AND b.status = 'pending' 
-             ORDER BY b.appointment_date ASC LIMIT 1`,
+             ORDER BY b.id DESC LIMIT 1`,
             [userId]
         );
 
-        if (bookings.length === 0) {
-            return res.status(200).json({ hasBooking: false });
-        }
-
+        if (bookings.length === 0) return res.status(200).json({ hasBooking: false });
         res.status(200).json({ hasBooking: true, booking: bookings[0] });
     } catch (error) {
         console.error(error);
