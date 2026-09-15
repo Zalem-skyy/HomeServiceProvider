@@ -1,0 +1,15 @@
+{
+  "name": "Fix Now Marketplace",
+  "short_name": "Fix Now",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#007bff",
+  "theme_color": "#007bff",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/1040/1040254.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

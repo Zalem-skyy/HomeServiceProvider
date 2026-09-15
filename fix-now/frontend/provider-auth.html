@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#007bff">
     <title>Fix Now - Become a Professional</title>
     <style>
         body { font-family: Arial, sans-serif; background-color: #f4f4f9; padding: 50px; margin: 0; display: flex; justify-content: center; }
@@ -23,6 +24,16 @@
         
         #message { text-align: center; font-weight: bold; margin-top: 15px; }
     </style>
+    <!-- Link the Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Register the Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+            .then(() => console.log('Service Worker Registered'));
+        }
+    </script>
 </head>
 <body>
 
