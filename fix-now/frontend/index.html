@@ -5,86 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fix Now - Welcome</title>
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            background-color: #f4f4f9; 
-            margin: 0; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
-            padding: 20px; 
-            box-sizing: border-box; 
-        }
-        .landing-container { 
-            max-width: 400px; 
-            width: 100%; 
-            background: white; 
-            padding: 30px 20px; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-            text-align: center; 
-        }
-        .logo { 
-            font-size: 32px; 
-            color: #007bff; 
-            font-weight: bold; 
-            margin-bottom: 10px; 
-        }
-        .tagline { 
-            color: #666; 
-            font-size: 15px; 
-            margin-bottom: 30px; 
-        }
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; padding: 50px; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; box-sizing: border-box; }
+        .container { max-width: 400px; width: 100%; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .container h2 { text-align: center; color: #007bff; font-size: 28px; margin-bottom: 5px; margin-top: 0; }
+        .subtitle { text-align: center; color: #666; font-size: 14px; margin-bottom: 25px; }
         
-        .role-card { 
-            background: #f9f9f9; 
-            border: 1px solid #ddd; 
-            border-radius: 8px; 
-            padding: 20px; 
-            margin-bottom: 20px; 
-            transition: transform 0.2s ease;
-        }
-        .role-card:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
-        .role-card h3 { margin: 0 0 10px; color: #333; }
-        .role-card p { font-size: 13px; color: #555; margin: 0 0 15px; line-height: 1.4; }
+        input[type="text"], input[type="email"], input[type="password"] { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 15px; }
+        button { width: 100%; padding: 12px; background: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; margin-top: 10px; transition: background 0.2s; }
+        button:hover { background: #218838; }
         
-        .btn { 
-            display: block; 
-            width: 100%; 
-            padding: 12px; 
-            color: white; 
-            text-decoration: none; 
-            border-radius: 6px; 
-            font-weight: bold; 
-            box-sizing: border-box; 
-        }
-        .btn-customer { background: #28a745; }
-        .btn-customer:hover { background: #218838; }
-        .btn-provider { background: #007bff; }
-        .btn-provider:hover { background: #0056b3; }
+        .password-container { display: flex; align-items: center; font-size: 13px; margin-top: -5px; margin-bottom: 10px; color: #555; }
+        .password-container input { margin-right: 8px; width: auto; cursor: pointer; }
+        
+        .toggle-text { text-align: center; font-size: 14px; margin-top: 20px; cursor: pointer; color: #007bff; font-weight: bold; }
+        .toggle-text:hover { text-decoration: underline; }
+        #message { text-align: center; font-weight: bold; margin-top: 15px; font-size: 14px; }
     </style>
 </head>
 <body>
 
-    <div class="landing-container">
-        <div class="logo">Fix Now</div>
-        <div class="tagline">Your trusted home service marketplace.</div>
+    <!-- Login Form -->
+    <div class="container" id="loginContainer">
+        <h2>Fix Now</h2>
+        <div class="subtitle">One account to hire pros or offer your services.</div>
+        
+        <form id="loginForm">
+            <input type="email" id="loginEmail" placeholder="Email Address" required>
+            <input type="password" id="loginPassword" placeholder="Password" required>
+            
+            <div class="password-container">
+                <input type="checkbox" id="showLoginPass" onclick="togglePassword('loginPassword')"> 
+                <label for="showLoginPass" style="cursor: pointer;">Show Password</label>
+            </div>
 
-        <!-- Customer Section -->
-        <div class="role-card">
-            <h3>I need a service</h3>
-            <p>Find trusted plumbers, electricians, cleaners, and more to fix up your home.</p>
-            <a href="customer-auth.html" class="btn btn-customer">Customer Portal</a>
-        </div>
-
-        <!-- Provider Section -->
-        <div class="role-card">
-            <h3>I am a professional</h3>
-            <p>Join our platform to find jobs, manage your bookings, and grow your business.</p>
-            <a href="provider-auth.html" class="btn btn-provider">Provider Portal</a>
-        </div>
+            <button type="submit">Log In</button>
+        </form>
+        <div class="toggle-text" onclick="toggleForms()">Need an account? Sign up</div>
     </div>
 
+    <!-- Registration Form -->
+    <div class="container" id="registerContainer" style="display: none;">
+        <h2>Join Fix Now</h2>
+        <div class="subtitle">Create a universal account to get started.</div>
+        
+        <form id="registerForm">
+            <input type="text" id="regName" placeholder="Full Name" required>
+            <input type="email" id="regEmail" placeholder="Email Address" required>
+            <input type="password" id="regPassword" placeholder="Password" required>
+            
+            <div class="password-container">
+                <input type="checkbox" id="showRegPass" onclick="togglePassword('regPassword')"> 
+                <label for="showRegPass" style="cursor: pointer;">Show Password</label>
+            </div>
+
+            <button type="submit">Sign Up</button>
+        </form>
+        <div class="toggle-text" onclick="toggleForms()">Already have an account? Log in</div>
+    </div>
+
+    <div id="message"></div>
+
+    <script src="js/auth.js"></script>
 </body>
 </html>

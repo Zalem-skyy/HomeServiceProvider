@@ -2,7 +2,10 @@ const express = require('express');
 const router = express.Router();
 const adminController = require('./adminController');
 
-router.get('/providers/unverified', adminController.getUnverifiedProviders);
-router.patch('/providers/:id/verify', adminController.verifyProvider);
+// GET /api/admin/providers/pending
+router.get('/providers/pending', adminController.getPendingProviders);
+
+// PATCH /api/admin/providers/:id/approve
+router.patch('/providers/:id/approve', adminController.approveProvider);
 
 module.exports = router;

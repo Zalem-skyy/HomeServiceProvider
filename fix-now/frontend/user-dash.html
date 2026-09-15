@@ -126,6 +126,21 @@
         .nav-item.active { background-color: #007bff; border-color: #007bff; }
         .nav-item.circle { border-radius: 50%; }
 
+        /* Promo Banner Styles */
+        .promo-banner { 
+            background: linear-gradient(135deg, #007bff, #0056b3); 
+            color: white; 
+            border-radius: 10px; 
+            padding: 20px; 
+            margin-bottom: 30px; 
+            cursor: pointer; 
+            box-shadow: 0 4px 10px rgba(0,123,255,0.2);
+            transition: transform 0.2s ease;
+        }
+        .promo-banner:hover { transform: translateY(-3px); }
+        .promo-banner h4 { margin: 0 0 8px; font-size: 18px; }
+        .promo-banner p { margin: 0; font-size: 13px; opacity: 0.9; line-height: 1.4; }
+
         /* New Search UI Styles */
         .search-pill { background: #bbb; padding: 12px 15px; border-radius: 25px; color: #333; font-size: 14px; cursor: pointer; margin-bottom: 20px; font-weight: bold; }
         .search-dropdown { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 20px; display: none; }
@@ -139,12 +154,13 @@
 
     <div class="app-container">
         <!-- Top Header -->
-        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-            <div>
-                <p style="margin: 0; font-size: 12px; color: #888;">Current location</p>
-                <h3 id="currentLocationText" style="margin: 0;">123 Main Street</h3>
+        <div class="header">
+            <div class="location-info">
+                <p>Current location</p>
+                <h4 id="currentLocationText">123 Main Street</h4>
             </div>
-            <div class="provider-avatar" style="width: 40px; height: 40px;"></div>
+            <!-- New Launchpad Button -->
+            <a href="provider-auth.html" style="background: #007bff; color: white; padding: 8px 12px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: bold;">Become a Pro</a>
         </div>
 
         <!-- Clickable Search Pill -->
@@ -176,8 +192,14 @@
             <div class="service-item"><div class="service-icon"></div><span>Plumbing</span></div>
         </div>
 
+        <!-- NEW: Become a Professional Launchpad -->
+        <div class="promo-banner" onclick="window.location.href='provider-auth.html'">
+            <h4>Earn money on Fix Now</h4>
+            <p>Got skills? Join our community of trusted professionals and start getting booked today &rarr;</p>
+        </div>
+
         <!-- Active Booking Tracking Card -->
-        <div class="active-booking">
+        <div class="active-booking" style="display: none;">
             <div class="provider-avatar"></div>
             <div class="booking-details">
                 <h4>John Doe - Arriving<br>in 15 mins</h4>

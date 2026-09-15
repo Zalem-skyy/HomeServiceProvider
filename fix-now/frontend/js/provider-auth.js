@@ -1,83 +1,79 @@
-const API_URL = 'http://localhost:5000/api/providers';
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Ensure the user is actually logged in first!
+    const token = localStorage.getItem('token');
+    if (!token) {
+        alert("You must be logged in to become a provider.");
+        window.location.href = 'customer-auth.html';
+        return;
+    }
+});
+
 const messageDiv = document.getElementById('message');
 
-// Toggle between Login and Register views
-window.toggleForms = () => {
-    const regContainer = document.getElementById('registerContainer');
-    const loginContainer = document.getElementById('loginContainer');
-    if (regContainer.style.display === 'none') {
-        regContainer.style.display = 'block';
-        loginContainer.style.display = 'none';
-    } else {
-        regContainer.style.display = 'none';
-        loginContainer.style.display = 'block';
-    }
-    messageDiv.textContent = '';
-};
-
-// Handle Provider Registration
-document.getElementById('providerRegisterForm').addEventListener('submit', async (e) => {
+// 2. Handle the Profile Upgrade
+document.getElementById('becomeProviderForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    const name = document.getElementById('regName').value;
-    const email = document.getElementById('regEmail').value;
-    const password = document.getElementById('regPassword').value;
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    // Decode the token to get the user's ID
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const userId = payload.id;
+
     const service_category = document.getElementById('regCategory').value;
+    const location = document.getElementById('regLocation').value;
 
     try {
-        const response = await fetch(`${API_URL}/register`, {
+        const response = await fetch('http://localhost:5000/api/providers/become', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, email, password, service_category })
+            body: JSON.stringify({ userId, service_category, location })
         });
 
         const data = await response.json();
         
         if (response.ok) {
             messageDiv.style.color = 'green';
-            messageDiv.textContent = 'Registration successful! Your account is pending admin approval.';
-            document.getElementById('providerRegisterForm').reset();
+            messageDiv.textContent = 'Profile created! Your account is pending admin approval.';
+            document.getElementById('becomeProviderForm').reset();
         } else {
             messageDiv.style.color = 'red';
-            messageDiv.textContent = data.message || 'Registration failed.';
+            messageDiv.textContent = data.message || 'Failed to create profile.';
         }
     } catch (error) {
-        messageDiv.textContent = 'Server error.';
+        messageDiv.style.color = 'red';
+        messageDiv.textContent = 'Server error. Is the backend running?';
     }
 });
 
-// Handle Provider Login
-document.getElementById('providerLoginForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
+// 3. Location Detection (Same logic as user search)
+window.detectProviderLocation = () => {
+    const locInput = document.getElementById('regLocation');
+    locInput.value = "Detecting...";
 
-    try {
-        const response = await fetch(`${API_URL}/login`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            // Save the provider token. Naming it 'providerToken' avoids conflicts with the user token!
-            localStorage.setItem('providerToken', data.token);
-            
-            messageDiv.style.color = 'green';
-            messageDiv.textContent = `Welcome back, ${data.provider.name}! Redirecting...`;
-            
-            // Redirect to the provider dashboard (we will build this next)
-            setTimeout(() => {
-                window.location.href = 'provider-dash.html';
-            }, 1000);
-        } else {
-            messageDiv.style.color = 'red';
-            messageDiv.textContent = data.message || 'Login failed.';
-        }
-    } catch (error) {
-        messageDiv.textContent = 'Server error.';
+    if (!navigator.geolocation) {
+        alert("Geolocation is not supported by your browser.");
+        locInput.value = "";
+        return;
     }
-});
+
+    navigator.geolocation.getCurrentPosition(async (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        try {
+            const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`);
+            const data = await response.json();
+            const city = data.address.city || data.address.town || data.address.state_district || data.address.county || "Unknown City";
+            locInput.value = city;
+        } catch (error) {
+            console.error("Geocoding failed", error);
+            locInput.value = "New York"; 
+            alert("Could not determine city name. Please enter manually.");
+        }
+    }, () => {
+        alert("Location permission denied. Please type your city manually.");
+        locInput.value = "";
+    });
+};
