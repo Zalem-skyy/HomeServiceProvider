@@ -35,9 +35,8 @@ document.getElementById('providerRegisterForm').addEventListener('submit', async
         
         if (response.ok) {
             messageDiv.style.color = 'green';
-            messageDiv.textContent = 'Registration successful! You can now log in.';
+            messageDiv.textContent = 'Registration successful! Your account is pending admin approval.';
             document.getElementById('providerRegisterForm').reset();
-            setTimeout(toggleForms, 1500); // Auto-switch to login
         } else {
             messageDiv.style.color = 'red';
             messageDiv.textContent = data.message || 'Registration failed.';

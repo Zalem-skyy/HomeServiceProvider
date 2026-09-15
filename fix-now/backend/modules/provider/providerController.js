@@ -25,21 +25,19 @@ exports.getCategories = async (req, res) => {
     }
 };
 
-// Register a new Provider
+// Register a new Provider (Pending Approval)
 exports.register = async (req, res) => {
     try {
         const { name, email, password, service_category } = req.body;
         
-        // Hash the password for security
         const hashedPassword = await bcrypt.hash(password, 10);
         
-        // Insert new providers as unverified until an admin approves them
         await db.query(
             'INSERT INTO providers (name, email, password, service_category, is_verified) VALUES (?, ?, ?, ?, false)',
             [name, email, hashedPassword, service_category]
         );
         
-        res.status(201).json({ message: 'Provider registered successfully!' });
+        res.status(201).json({ message: 'Registration successful. Pending admin approval.' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error registering provider.' });
@@ -51,15 +49,16 @@ exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
         
-        // Find provider by email
         const [providers] = await db.query('SELECT * FROM providers WHERE email = ?', [email]);
         
-        // Check if provider exists and password matches
         if (providers.length === 0 || !(await bcrypt.compare(password, providers[0].password))) {
             return res.status(401).json({ message: 'Invalid email or password.' });
         }
 
-        // Generate a JWT (Notice the role is set to 'provider'!)
+        if (!providers[0].is_verified) {
+            return res.status(403).json({ message: 'Account pending admin approval.' });
+        }
+
         const token = jwt.sign(
             { id: providers[0].id, role: 'provider' }, 
             process.env.JWT_SECRET, 
