@@ -1,4 +1,5 @@
-const API_URL = 'http://localhost:5000/api/users';
+// Replace this with your ACTUAL port 5000 dev tunnel link
+const API_URL = 'https://your-unique-tunnel-id-5000.devtunnel.ms/api/users';
 const messageDiv = document.getElementById('message');
 
 // Toggle between Login and Register views
