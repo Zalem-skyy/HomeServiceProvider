@@ -1,4 +1,4 @@
-const API_URL = 'https://zwvclqrx-5000.inc1.devtunnels.ms/api/users';
+const API_URL = 'http://192.168.85.1:5000/api';
 const messageDiv = document.getElementById('message');
 
 // Toggle between Login and Register views
@@ -35,7 +35,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
     const password = document.getElementById('regPassword').value;
 
     try {
-        const response = await fetch(`${API_URL}/register`, {
+        const response = await fetch(`${API_URL}/users/register`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, email, password })
@@ -71,7 +71,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     const password = document.getElementById('loginPassword').value;
 
     try {
-        const response = await fetch(`${API_URL}/login`, {
+        const response = await fetch(`${API_URL}/users/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })

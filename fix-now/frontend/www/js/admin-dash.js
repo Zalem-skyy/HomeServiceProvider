@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', fetchPending);
 async function fetchPending() {
     const list = document.getElementById('pendingList');
     try {
-        const response = await fetch('https://zwvclqrx-5000.inc1.devtunnels.ms/api/admin/providers/pending');
+        const response = await fetch('http://192.168.85.1:5000/api/admin/providers/pending');
         const providers = await response.json();
 
         // Check if the backend sent an error message instead of an array!
@@ -40,7 +40,7 @@ async function fetchPending() {
 
 window.approve = async (id) => {
     try {
-        const res = await fetch(`https://zwvclqrx-5000.inc1.devtunnels.ms/api/admin/providers/${id}/approve`, { method: 'PATCH' });
+        const res = await fetch(`http://192.168.85.1:5000/api/admin/providers/${id}/approve`, { method: 'PATCH' });
         if (res.ok) {
             alert('Provider Profile Approved!');
             fetchPending(); // Reload the list

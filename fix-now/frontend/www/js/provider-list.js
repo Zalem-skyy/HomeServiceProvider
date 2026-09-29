@@ -20,10 +20,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (keyword) searchParams.append('keyword', keyword);
         if (location) searchParams.append('location', location);
         
-        apiUrl = `https://zwvclqrx-5000.inc1.devtunnels.ms/api/providers/search?${searchParams.toString()}`;
+        apiUrl = `http://192.168.85.1:5000/api/providers/search?${searchParams.toString()}`;
     } else if (category) {
         titleElement.textContent = category;
-        apiUrl = `https://zwvclqrx-5000.inc1.devtunnels.ms/api/providers/category/${category}`;
+        apiUrl = `http://192.168.85.1:5000/api/providers/category/${category}`;
     } else {
         providerList.innerHTML = '<p style="text-align:center;">No search parameters provided.</p>';
         return;
@@ -84,7 +84,7 @@ async function bookProvider(providerId) {
     const date = tomorrow.toISOString().slice(0, 19).replace('T', ' ');
 
     try {
-        const response = await fetch('https://zwvclqrx-5000.inc1.devtunnels.ms/api/bookings', {
+        const response = await fetch('http://192.168.85.1:5000/api/bookings', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ userId, providerId, date })

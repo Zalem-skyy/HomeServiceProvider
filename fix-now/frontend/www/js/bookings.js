@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         const payload = JSON.parse(atob(token.split('.')[1]));
-        const response = await fetch(`https://zwvclqrx-5000.inc1.devtunnels.ms/api/bookings/user/${payload.id}`);
+        const response = await fetch(`http://192.168.85.1:5000/api/bookings/user/${payload.id}`);
         allBookings = await response.json();
         
         renderBookings();

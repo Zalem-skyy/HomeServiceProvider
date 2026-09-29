@@ -25,7 +25,7 @@ document.getElementById('becomeProviderForm').addEventListener('submit', async (
     const location = document.getElementById('regLocation').value;
 
     try {
-        const response = await fetch('https://zwvclqrx-5000.inc1.devtunnels.ms/api/providers/become', {
+        const response = await fetch('http://192.168.85.1:5000/api/providers/become', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ userId, service_category, location })

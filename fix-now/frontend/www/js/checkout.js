@@ -6,7 +6,7 @@ document.getElementById('paymentForm').addEventListener('submit', async (e) => {
     const bookingId = urlParams.get('id');
 
     try {
-        const response = await fetch(`https://zwvclqrx-5000.inc1.devtunnels.ms/api/bookings/${bookingId}/pay`, {
+        const response = await fetch(`http://192.168.85.1:5000/api/bookings/${bookingId}/pay`, {
             method: 'PATCH'
         });
 

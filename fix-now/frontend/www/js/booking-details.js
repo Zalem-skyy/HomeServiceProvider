@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         // 2. Fetch the specific booking from the backend
-        const response = await fetch(`https://zwvclqrx-5000.inc1.devtunnels.ms/api/bookings/${bookingId}`);
+        const response = await fetch(`http://192.168.85.1:5000/api/bookings/${bookingId}`);
         const booking = await response.json();
 
         if (!booking || !booking.id) {
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const feedback = document.getElementById('reviewFeedback').value;
 
             try {
-                const res = await fetch(`https://zwvclqrx-5000.inc1.devtunnels.ms/api/reviews`, {
+                const res = await fetch(`http://192.168.85.1:5000/api/reviews`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ bookingId: booking.id, rating, feedback })
@@ -97,7 +97,7 @@ async function cancelBooking(id) {
     if (!confirm('Are you sure you want to cancel this booking?')) return;
 
     try {
-        const response = await fetch(`https://zwvclqrx-5000.inc1.devtunnels.ms/api/bookings/${id}/cancel`, {
+        const response = await fetch(`http://192.168.85.1:5000/api/bookings/${id}/cancel`, {
             method: 'PATCH'
         });
 

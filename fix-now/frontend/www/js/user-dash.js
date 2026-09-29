@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         // Fetch categories from the backend
-        const response = await fetch('https://zwvclqrx-5000.inc1.devtunnels.ms/api/providers/categories');
+        const response = await fetch('http://192.168.85.1:5000/api/providers/categories');
         const categories = await response.json();
 
         // Clear the hardcoded "Plumbing" placeholders
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const payload = JSON.parse(atob(token.split('.')[1]));
         const userId = payload.id;
         
-        const bookingRes = await fetch(`https://zwvclqrx-5000.inc1.devtunnels.ms/api/bookings/active/${userId}`);
+        const bookingRes = await fetch(`http://192.168.85.1:5000/api/bookings/active/${userId}`);
         const bookingData = await bookingRes.json();
 
         if (bookingData.hasBooking) {

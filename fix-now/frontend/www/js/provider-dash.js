@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const userId = payload.id;
 
         // 3. Fetch this user's provider profile
-        const profileRes = await fetch(`https://zwvclqrx-5000.inc1.devtunnels.ms/api/providers/user/${userId}`);
+        const profileRes = await fetch(`http://192.168.85.1:5000/api/providers/user/${userId}`);
 
         if (profileRes.status === 404) {
             // User has not onboarded as a provider yet
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         // 5. Fetch jobs using the real provider ID
-        const response = await fetch(`https://zwvclqrx-5000.inc1.devtunnels.ms/api/bookings/provider/${providerProfile.id}`);
+        const response = await fetch(`http://192.168.85.1:5000/api/bookings/provider/${providerProfile.id}`);
         const jobs = await response.json();
 
         if (jobs.length === 0) {
