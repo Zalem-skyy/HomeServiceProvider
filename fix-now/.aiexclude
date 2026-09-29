@@ -32,3 +32,19 @@ Thumbs.db
 dist/
 build/
 out/
+
+# 6. Android & Capacitor generated files (keep native source indexable)
+**/android/build/
+**/android/**/build/
+**/android/.gradle/
+**/android/.idea/
+**/android/.cxx/
+**/android/captures/
+**/android/local.properties
+**/android/app/src/main/assets/public/
+**/android/**/*.apk
+**/android/**/*.aab
+**/android/**/*.aar
+**/android/**/*.dex
+**/android/**/*.class
+**/android/**/*.hprof
