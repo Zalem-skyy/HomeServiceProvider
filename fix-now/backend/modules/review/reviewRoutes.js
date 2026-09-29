@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const reviewController = require('./reviewController');
 
-// We will add specific routes here later
+// POST /api/reviews
+router.post('/', reviewController.submitReview);
 
 module.exports = router;

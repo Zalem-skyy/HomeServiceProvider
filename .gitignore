@@ -1,0 +1,24 @@
+# Capacitor & Android build output
+**/android/build/
+**/android/app/build/
+**/android/.gradle/
+**/.idea/
+**/android/.idea/
+**/android/local.properties
+**/android/*.iml
+**/android/app/*.iml
+**/android/captures/
+**/android/.cxx/
+
+# Node dependencies
+**/node_modules/
+package-lock.json
+
+# Environment files
+**/.env
+**/.env.*
+
+# Logs & OS artifacts
+*.log
+.DS_Store
+Thumbs.db
